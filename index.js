@@ -10,36 +10,40 @@ function loadPrompts() {
             message: "What would you like to do?",
             choices: [
                 {
-                    name: "View All Employees",
-                    value: "view_employees"
-                },
-                {
-                    name: "Update Employee Role",
-                    value: "employee_role"
+                    name: "View All Departments",
+                    value: "view_all_departments"
+
                 },
                 {
                     name: "View All Roles",
                     value: "all_roles"
+
                 },
                 {
-                    name: "Add Role",
+                    name: "View All Employees",
+                    value: "view_employees"
+
+                },
+                {
+                    name: "Add a Department",
+                    value: "add_department"
+
+                },
+                {
+                    name: "Add a Role",
                     value: "add_role"
                 },
                 {
-                    name: "View All Departments",
-                    value: "view_all_departments"
+                    name: "Add an Employee",
+                    value: "add_employee"
                 },
                 {
-                    name: "Add Department",
-                    value: "add_department"
+                    name: "Update an Employee Role",
+                    value: "update_employee_role"
                 },
                 {
                     name: "Quit",
                     value: "quit"
-                },
-                {
-                    name: "View All Employees",
-                    value: "view_all_employees"
                 }
             ]
         }
