@@ -4,12 +4,13 @@ const consoleTable = require('console.table');
 const functions = require('./db/functions');
 const connection = require('./db/connection');
 
-exports.loadPrompts = loadPrompts;
-
 const { viewAllDepartments } = require('./db/functions');
 const { viewAllRoles } = require('./db/functions');
 const { viewAllEmployees } = require('./db/functions');
 const { addDepartment } = require('./db/functions');
+const { addRole } = require('./db/functions');
+const { addEmployee } = require('./db/functions');
+const { updateEmployeeRole } = require('./db/functions');
 
 function loadPrompts() {
     inquirer.prompt([
