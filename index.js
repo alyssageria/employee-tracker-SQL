@@ -1,3 +1,4 @@
+// required packages
 const inquirer = require('inquirer');
 const consoleTable = require('console.table');
 const functions = require('./db/functions');
@@ -90,6 +91,7 @@ function loadPrompts() {
     })
 }
 
+// this function prompts the user when they click on a choice if they would like to return to the main menu Y/N
 function returnMainMenu() {
     inquirer
         .prompt([

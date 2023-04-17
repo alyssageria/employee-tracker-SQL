@@ -1,3 +1,4 @@
+// required packages
 const inquirer = require('inquirer');
 const index = require('../index.js');
 const consoleTable = require('console.table');
@@ -187,6 +188,7 @@ function updateEmployeeRole() {
     })
 }
 
+// quit function
 function quit() {
     console.log("Goodbye!");
     connection.end();
