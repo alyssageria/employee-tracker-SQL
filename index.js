@@ -1,17 +1,14 @@
 const inquirer = require('inquirer');
-// const db = require('./db')
 const consoleTable = require('console.table');
 const functions = require('./db/functions');
 const connection = require('./db/connection');
 
-const { viewAllDepartments } = require('./db/functions');
-const { viewAllRoles } = require('./db/functions');
-const { viewAllEmployees } = require('./db/functions');
-const { addDepartment } = require('./db/functions');
-const { addRole } = require('./db/functions');
-const { addEmployee } = require('./db/functions');
-const { updateEmployeeRole } = require('./db/functions');
+exports.returnMainMenu = returnMainMenu;
 
+// importing all my functions from functions.js
+const { viewAllDepartments, viewAllRoles, viewAllEmployees, addDepartment, addRole, addEmployee, updateEmployeeRole, quit } = require('./db/functions');
+
+// load prompts function
 function loadPrompts() {
     inquirer.prompt([
         {
@@ -63,12 +60,15 @@ function loadPrompts() {
         switch (choice) {
             case "VIEW_ALL_DEPARTMENTS":
                 viewAllDepartments();
+                returnMainMenu();
                 break;
             case "ALL_ROLES":
                 viewAllRoles();
+                returnMainMenu();
                 break;
             case "VIEW_EMPLOYEES":
                 viewAllEmployees();
+                returnMainMenu();
                 break;
             case "ADD_DEPARTMENT":
                 addDepartment();
@@ -81,12 +81,32 @@ function loadPrompts() {
                 break;
             case "UPDATE_EMPLOYEE_ROLE":
                 updateEmployeeRole();
+                returnMainMenu();
                 break;
             case 'QUIT':
                 quit();
                 break;
         }
     })
+}
+
+function returnMainMenu() {
+    inquirer
+        .prompt([
+            {
+                type: "confirm",
+                name: "returnToMainMenu",
+                message: "Would you like to return to the main menu?",
+                default: true
+            }
+        ])
+        .then(res => {
+            if (res.returnToMainMenu) {
+                loadPrompts();
+            } else {
+                quit();
+            }
+        });
 }
 
 loadPrompts();

@@ -3,7 +3,7 @@ const index = require('../index.js');
 const consoleTable = require('console.table');
 const connection = require('./connection.js');
 
-
+// exporting all my functions
 exports.viewAllDepartments = viewAllDepartments;
 exports.viewAllRoles = viewAllRoles;
 exports.viewAllEmployees = viewAllEmployees;
@@ -11,6 +11,7 @@ exports.addDepartment = addDepartment;
 exports.addRole = addRole;
 exports.addEmployee = addEmployee;
 exports.updateEmployeeRole = updateEmployeeRole;
+exports.quit = quit;
 
 function viewAllDepartments() {
     connection.query('SELECT * FROM department', (err, data) => {
@@ -58,6 +59,7 @@ function addDepartment() {
                     console.log(err);
                     return;
                 } else {
+                    index.returnMainMenu();
                     console.log(`Successfully added ${answer.name} department to the database`);
                 }
             })
@@ -88,6 +90,7 @@ function addRole() {
                     console.log(err);
                     return;
                 } else {
+                    index.returnMainMenu();
                     console.log(`Successfully added ${answer.title} role to the database`);
                 }
             })
@@ -112,18 +115,30 @@ function addEmployee() {
             message: 'Please enter their role ID'
         },
         {
+            type: 'confirm',
+            name: 'is_manager',
+            message: 'Is this employee a manager?',
+            default: false
+        },
+        {
             type: 'input',
             name: 'manager_id',
-            message: 'Please enter their manager ID'
+            message: 'Please enter their manager ID',
+            when: (answers) => !answers.is_manager
         }
     ])
         .then((answer) => {
+            // If the employee is a manager, set their manager_id to null
+            if (answer.is_manager) {
+                answer.manager_id = null;
+            }
             connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [answer.first_name, answer.last_name, answer.role_id, answer.manager_id], (err, data) => {
                 if (err) {
                     console.log(err);
                     return;
                 } else {
-                    console.log(`Successfully added employee ${answer.first_name} ${answer.last_name}to the database`);
+                    index.returnMainMenu();
+                    console.log(`Successfully added employee ${answer.first_name} ${answer.last_name} to the database`);
                 }
             })
         })
@@ -173,6 +188,8 @@ function updateEmployeeRole() {
 }
 
 function quit() {
-
+    console.log("Goodbye!");
+    connection.end();
+    process.exit();
 }
 
