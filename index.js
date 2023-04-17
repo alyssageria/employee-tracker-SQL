@@ -1,7 +1,15 @@
 const inquirer = require('inquirer');
-const db = require('./db')
+// const db = require('./db')
 const consoleTable = require('console.table');
 const functions = require('./db/functions');
+const connection = require('./db/connection');
+
+exports.loadPrompts = loadPrompts;
+
+const { viewAllDepartments } = require('./db/functions');
+const { viewAllRoles } = require('./db/functions');
+const { viewAllEmployees } = require('./db/functions');
+const { addDepartment } = require('./db/functions');
 
 function loadPrompts() {
     inquirer.prompt([
@@ -80,3 +88,4 @@ function loadPrompts() {
     })
 }
 
+loadPrompts();
