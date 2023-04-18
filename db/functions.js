@@ -14,6 +14,7 @@ exports.addEmployee = addEmployee;
 exports.updateEmployeeRole = updateEmployeeRole;
 exports.quit = quit;
 
+// displays my department table
 function viewAllDepartments() {
     connection.query('SELECT * FROM department', (err, data) => {
         if (err) {
@@ -26,6 +27,7 @@ function viewAllDepartments() {
     })
 }
 
+// displays my role table with job title, role id, the department and the salary
 function viewAllRoles() {
     connection.query('SELECT role.id, role.title, department.name AS department, role.salary FROM role JOIN department ON role.department_id = department.id', (err, data) => {
         if (err) {
@@ -37,6 +39,7 @@ function viewAllRoles() {
     })
 }
 
+// displays my employee table with employee ids, first name, last name, job title, departments, salaries and managers
 function viewAllEmployees() {
     connection.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department_name, role.salary, CONCAT(manager.first_name, " ", manager.last_name) AS manager_name FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id', (err, data) => {
         if (err) {
@@ -48,6 +51,7 @@ function viewAllEmployees() {
     })
 }
 
+// prompts the user to be able to add a department
 function addDepartment() {
     inquirer.prompt({
         type: 'input',
@@ -67,6 +71,7 @@ function addDepartment() {
         })
 }
 
+// prompts the user to add a role, must provide a role title, salary and department id
 function addRole() {
     inquirer.prompt([
         {
@@ -98,6 +103,8 @@ function addRole() {
         })
 }
 
+// add an employee, must provide first and last name, role id, and specify whether they are a manager. if they are not a manager must add manager id
+// if they are a manager, their manager id will auto fill with "null"
 function addEmployee() {
     inquirer.prompt([
         {
@@ -145,6 +152,8 @@ function addEmployee() {
         })
 }
 
+// prompts the user with all the employee names in the database
+// prompts the user with all the roles in which they can update the employee to
 function updateEmployeeRole() {
     connection.query('SELECT id, CONCAT(first_name, " ", last_name) AS name FROM employee', (err, employees) => {
         if (err) {
