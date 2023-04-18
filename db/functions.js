@@ -179,6 +179,7 @@ function updateEmployeeRole() {
                             console.log(err);
                             return;
                         } else {
+                            index.returnMainMenu();
                             console.log(`Successfully updated employee's role`);
                         }
                     })

@@ -82,7 +82,6 @@ function loadPrompts() {
                 break;
             case "UPDATE_EMPLOYEE_ROLE":
                 updateEmployeeRole();
-                returnMainMenu();
                 break;
             case 'QUIT':
                 quit();
